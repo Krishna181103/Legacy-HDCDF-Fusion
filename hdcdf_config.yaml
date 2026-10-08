@@ -1,0 +1,67 @@
+seed: 42
+dataset:
+  name: HyperLeaf2024
+  train_csv: datasets/HyperLeaf2024/train.csv
+  test_csv: datasets/HyperLeaf2024/test.csv
+  image_dir: datasets/HyperLeaf2024/images
+preprocessing:
+  resize_hw: [64, 64]
+  spectral_normalization: per_pixel_zscore
+  pca_components: 24
+  pca_fit_split: train_only
+  patch_size: 48
+  validation_crop: center
+augmentation:
+  enabled: true
+  train_only: true
+  equal_probability_ops:
+    - unchanged
+    - rotate_45
+    - rotate_90
+    - rotate_135
+    - flip_vertical
+    - flip_horizontal
+model:
+  default_variant: full
+  available_variants:
+    - legacy_best
+    - baseline
+    - dsc
+    - hybrid
+    - attention
+    - residual
+    - mish
+    - full
+    - 2d_only
+    - 3d_only
+  dropout: 0.4
+  weight_decay: 0.0001
+training:
+  batch_size: 12
+  epochs: 60
+  optimizer: AdamW
+  learning_rate: 0.001
+  scheduler: CosineDecayRestarts
+  early_stopping:
+    monitor: val_accuracy
+    mode: max
+    patience: 10
+  checkpoint:
+    monitor: val_accuracy
+    mode: max
+evaluation:
+  validation_monitoring_only: true
+  metrics:
+    - OA
+    - AA
+    - Kappa
+    - per_class_accuracy
+    - precision
+    - recall
+    - f1_score
+    - confusion_matrix
+    - classification_report
+    - trainable_parameters
+    - model_size_mb
+    - training_time_sec
+    - inference_time_sec

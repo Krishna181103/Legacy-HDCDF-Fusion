@@ -1,0 +1,11 @@
+% Equations verified against the implemented preprocessing and model.
+\begin{align}
+v' &= \frac{v-v_{min}}{v_{max}-v_{min}+\epsilon}\\
+x_s &= \frac{x-\operatorname{mean}(x)}{\operatorname{std}(x)+\epsilon}\\
+Z(p) &= W^T(X(p)-\mu)\\
+Y &= PW(DW(X))\\
+a_c &= \operatorname{sigmoid}(MLP(GAP(X))+MLP(GMP(X)))\\
+Y &= F(X)+S(X)\\
+p_k &= \frac{\exp(z_k)}{\sum_j\exp(z_j)}\\
+L &= \operatorname{mean}_i\sum_k\alpha_k(1-p_{ik})^\gamma[-y_{ik}\log(p_{ik})].
+\end{align}
